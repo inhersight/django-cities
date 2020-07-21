@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
                 ('location', django.contrib.gis.db.models.fields.PointField(srid=4326)),
                 ('population', models.IntegerField()),
                 ('alt_names', models.ManyToManyField(to='cities.AlternativeName')),
-                ('city', models.ForeignKey(to='cities.City')),
+                ('city', models.ForeignKey(to='cities.City', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -93,7 +93,7 @@ class Migration(migrations.Migration):
                 ('subregion_name', models.CharField(max_length=100, db_index=True)),
                 ('district_name', models.CharField(max_length=100, db_index=True)),
                 ('alt_names', models.ManyToManyField(to='cities.AlternativeName')),
-                ('country', models.ForeignKey(related_name='postal_codes', to='cities.Country')),
+                ('country', models.ForeignKey(related_name='postal_codes', to='cities.Country', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -108,7 +108,7 @@ class Migration(migrations.Migration):
                 ('name_std', models.CharField(max_length=200, verbose_name=b'standard name', db_index=True)),
                 ('code', models.CharField(max_length=200, db_index=True)),
                 ('alt_names', models.ManyToManyField(to='cities.AlternativeName')),
-                ('country', models.ForeignKey(to='cities.Country')),
+                ('country', models.ForeignKey(to='cities.Country', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -123,7 +123,7 @@ class Migration(migrations.Migration):
                 ('name_std', models.CharField(max_length=200, verbose_name=b'standard name', db_index=True)),
                 ('code', models.CharField(max_length=200, db_index=True)),
                 ('alt_names', models.ManyToManyField(to='cities.AlternativeName')),
-                ('region', models.ForeignKey(to='cities.Region')),
+                ('region', models.ForeignKey(to='cities.Region', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -132,16 +132,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='city',
             name='country',
-            field=models.ForeignKey(to='cities.Country'),
+            field=models.ForeignKey(to='cities.Country', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='city',
             name='region',
-            field=models.ForeignKey(blank=True, to='cities.Region', null=True),
+            field=models.ForeignKey(blank=True, to='cities.Region', null=True, on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='city',
             name='subregion',
-            field=models.ForeignKey(blank=True, to='cities.Subregion', null=True),
+            field=models.ForeignKey(blank=True, to='cities.Subregion', null=True, on_delete=models.CASCADE),
         ),
     ]
