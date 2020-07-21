@@ -62,7 +62,7 @@ class Country(Place):
 class Region(Place):
     name_std = models.CharField(max_length=200, db_index=True, verbose_name="standard name")
     code = models.CharField(max_length=200, db_index=True)
-    country = models.ForeignKey(Country)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
 
     @property
     def parent(self):
@@ -74,7 +74,7 @@ class Region(Place):
 class Subregion(Place):
     name_std = models.CharField(max_length=200, db_index=True, verbose_name="standard name")
     code = models.CharField(max_length=200, db_index=True)
-    region = models.ForeignKey(Region)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
 
     @property
     def parent(self):
@@ -87,9 +87,9 @@ class City(Place):
     name_std = models.CharField(max_length=200, db_index=True, verbose_name="standard name")
     location = models.PointField()
     population = models.IntegerField()
-    region = models.ForeignKey(Region, null=True, blank=True)
-    subregion = models.ForeignKey(Subregion, null=True, blank=True)
-    country = models.ForeignKey(Country)
+    region = models.ForeignKey(Region, null=True, blank=True, on_delete=models.CASCADE)
+    subregion = models.ForeignKey(Subregion, null=True, blank=True, on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
     elevation = models.IntegerField(null=True)
     kind = models.CharField(max_length=10) # http://www.geonames.org/export/codes.html
     timezone = models.CharField(max_length=40) 
@@ -105,7 +105,7 @@ class District(Place):
     name_std = models.CharField(max_length=200, db_index=True, verbose_name="standard name")
     location = models.PointField()
     population = models.IntegerField()
-    city = models.ForeignKey(City)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
 
     @property
     def parent(self):
@@ -127,7 +127,7 @@ class PostalCode(Place):
     code = models.CharField(max_length=20)
     location = models.PointField()
 
-    country = models.ForeignKey(Country, related_name = 'postal_codes')
+    country = models.ForeignKey(Country, related_name = 'postal_codes', on_delete=models.CASCADE)
 
     # Region names for each admin level, region may not exist in DB
     region_name = models.CharField(max_length=100, db_index=True)
