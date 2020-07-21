@@ -1,4 +1,7 @@
 # django-cities
+
+** This is a Fork from django-cities==0.4.2 (https://github.com/coderholic/django-cities/commit/b74c42af7d236988a86f5bebb9e7aea6dc88a405) for the inhersight.com project. We aren't moving past 0.4.2 at this time because of breaking changes to the database but we needed to patch django-cities for compatibility with Django 2.2. **
+
 ### Place models and worldwide place data for Django
 
 ----
