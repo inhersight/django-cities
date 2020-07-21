@@ -19,7 +19,7 @@ class Place(models.Model):
     slug = models.CharField(max_length=200)
     alt_names = models.ManyToManyField('AlternativeName')
 
-    objects = models.GeoManager()
+    objects = models.Manager() # bcarradini: switched from GeoManager() to Manager() for upgrade from Django 1.11 to Django 2.0
 
     class Meta:
         abstract = True
@@ -134,7 +134,7 @@ class PostalCode(Place):
     subregion_name = models.CharField(max_length=100, db_index=True)
     district_name = models.CharField(max_length=100, db_index=True)
 
-    objects = models.GeoManager()
+    objects = models.Manager() # bcarradini: switched from GeoManager() to Manager() for upgrade from Django 1.11 to Django 2.0
 
     @property
     def parent(self):
